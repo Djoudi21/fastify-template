@@ -1,5 +1,5 @@
 import {AuthRepository} from "../../repositories/interfaces/authRepository";
-import {Credentials, User} from "./types";
+import {CreatedUserResponse, CreatedUserResponseError, Credentials, User} from "./types";
 
 export class RegisterUseCase  {
     private authRepository: AuthRepository;
@@ -8,8 +8,7 @@ export class RegisterUseCase  {
         this.authRepository = authRepository;
     }
 
-
-    async execute(credentials: Credentials) {
-        await this.authRepository.register(credentials)
+    async execute(credentials: Credentials): Promise<CreatedUserResponse | CreatedUserResponseError> {
+        return await this.authRepository.register(credentials)
     }
 }

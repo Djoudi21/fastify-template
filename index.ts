@@ -1,5 +1,5 @@
 import Fastify from 'fastify'
-import {routes} from './src/routes'
+import {router} from './src/routes'
 
 
 const port = 3000
@@ -10,7 +10,7 @@ const fastify: import('fastify').FastifyInstance = Fastify({
     logger: true
 })
 
-fastify.register(routes)
+fastify.register(router)
 
 fastify.listen({ port }, function (err, address) {
     if (err) {

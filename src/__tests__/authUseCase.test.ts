@@ -17,8 +17,37 @@ describe('register use case', () => {
               password: 'new user password'
           }
           const users = authRepository._users
-          await registerUseCase.execute(newUser)
+          const {data} = await registerUseCase.execute(newUser)
+
           expect(users.length).toBe(1)
           expect(users[0].id).toBeDefined()
+
+          if ('tokens' in data) {
+              expect(data.tokens).toBeDefined();
+          }
       })
+
+    it('should return an error if the user already exist', async () => {
+        const alreadyExistingUser = {
+            id: '1',
+            email: 'new user email',
+            password: 'new user password'
+        }
+
+        const newUser = {
+            email: 'new user email',
+            password: 'new user password'
+        }
+
+        authRepository._users.push(alreadyExistingUser)
+        const users = authRepository._users
+        const {data} = await registerUseCase.execute(newUser)
+
+        expect(users.length).toBe(1)
+
+        if ('message' in data) {
+            expect(data.message).toBeDefined()
+        }
+
+    })
 })

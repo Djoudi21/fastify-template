@@ -1,7 +1,7 @@
-import {Credentials, User} from "../../use-cases/registerUseCase/types";
+import {CreatedUserResponse, CreatedUserResponseError, Credentials, User} from "../../use-cases/registerUseCase/types";
 
 export interface AuthRepository {
     _users: User[]
 
-    register(credentials: Credentials): Promise<unknown>
+    register(credentials: Credentials): Promise<CreatedUserResponse | CreatedUserResponseError>
 }
