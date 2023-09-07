@@ -1,10 +1,9 @@
-import {CreatedUserResponse, CreatedUserResponseError, Credentials, User} from "../../use-cases/registerUseCase/types";
-import {LoggedUserResponse, LoggedUserResponseError} from "../../use-cases/loginUseCase/types";
+import {Credentials, User} from "../../use-cases/registerUseCase/types";
 
 export interface AuthRepository {
-    _users: User[]
+    _users?: User[]
 
-    register(credentials: Credentials): Promise<CreatedUserResponse | CreatedUserResponseError>
+    register(credentials: Credentials): Promise<any>
 
-    login(credentials: Credentials): Promise<LoggedUserResponse | LoggedUserResponseError>
+    login(credentials: Credentials): Promise<any>
 }

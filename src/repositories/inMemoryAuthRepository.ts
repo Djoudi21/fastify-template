@@ -36,15 +36,13 @@ export class InMemoryAuthRepository implements AuthRepository {
             const response: CreatedUserResponse = {
                 status: 201,
                 data: {
-                    id: this._users[0].id,
+                    id: Number(this._users[0].id),
                     email: this._users[0].email,
-                    tokens: {
-                        accessToken: 'access token',
-                        refreshToken: 'refresh token'
-                    }
+                    accessToken: 'access token',
+                    refreshToken: 'refresh token'
                 },
             }
-            
+
             return Promise.resolve(response)
         } catch(e) {
             return Promise.reject(e)
@@ -74,12 +72,10 @@ export class InMemoryAuthRepository implements AuthRepository {
             const response: CreatedUserResponse = {
                 status: 200,
                 data: {
-                    id: existingUser.id,
+                    id: Number(existingUser.id),
                     email: existingUser.email,
-                    tokens: {
-                        accessToken: 'access token',
-                        refreshToken: 'refresh token'
-                    }
+                    accessToken: 'access token',
+                    refreshToken: 'refresh token'
                 },
             }
             return Promise.resolve(response)

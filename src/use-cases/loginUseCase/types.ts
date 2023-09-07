@@ -12,12 +12,10 @@ export type User = {
 export type LoggedUserResponse = {
     status: number,
     data: {
-        id: User['id'],
+        id: number,
         email: string,
-        tokens: {
-            accessToken: string
-            refreshToken: string
-        }
+        accessToken: string
+        refreshToken: string
     },
 }
 

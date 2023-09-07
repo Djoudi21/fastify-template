@@ -6,16 +6,19 @@
   "scripts": {
     "dev": "nodemon index.ts",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "migrate:dev": "npx prisma migrate dev && npx prisma generate"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^5.2.0",
     "fastify": "^4.22.2"
   },
   "devDependencies": {
     "@types/node": "^20.5.9",
     "nodemon": "^3.0.1",
+    "prisma": "^5.2.0",
     "typescript": "^5.2.2",
     "vitest": "^0.34.3"
   }

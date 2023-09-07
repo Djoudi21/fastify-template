@@ -16,12 +16,10 @@ export type UserWithCredentials = User & {
 export type CreatedUserResponse = {
     status: number,
     data: {
-        id: User['id'],
-        email: string,
-        tokens: {
-            accessToken: string
-            refreshToken: string
-        }
+        id: number
+        email: string
+        accessToken: string
+        refreshToken: string
     },
 }
 
