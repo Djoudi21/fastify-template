@@ -8,14 +8,12 @@ export class AuthController {
     async register(req: any, res: any): Promise<CreatedUserResponse | CreatedUserResponseError> {
         const authRepository = new InMemoryAuthRepository()
         const registerUseCase = new RegisterUseCase(authRepository)
-
         return await registerUseCase.execute(req.body.data)
     }
 
     async login(req: any, res: any): Promise<LoggedUserResponse | LoggedUserResponseError> {
         const authRepository = new InMemoryAuthRepository()
         const loginUseCase = new LoginUseCase(authRepository)
-
         return await loginUseCase.execute(req.body.data)
     }
 }

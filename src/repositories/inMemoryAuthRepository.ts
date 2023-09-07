@@ -9,15 +9,13 @@ import {
 import {LoggedUserResponse, LoggedUserResponseError} from "../use-cases/loginUseCase/types";
 
 export class InMemoryAuthRepository implements AuthRepository {
-    _users: UserWithCredentials[] = [{
-        id: '1',
-        email: 'email',
-        password: 'password'
-    }]
+    _users: UserWithCredentials[] = []
     register(credentials: Credentials): Promise<CreatedUserResponse | CreatedUserResponseError> {
         try {
+
             const IsAlreadyUser = this._users.find(user => user.email === credentials.email)
-            if(IsAlreadyUser) {
+
+            if(!!IsAlreadyUser) {
                 const response: CreatedUserResponseError = {
                     status: 400,
                     data: {
@@ -32,6 +30,7 @@ export class InMemoryAuthRepository implements AuthRepository {
                 email: credentials.email,
                 password: credentials.password
             }
+
             this._users.push(newUser)
 
             const response: CreatedUserResponse = {
@@ -45,6 +44,7 @@ export class InMemoryAuthRepository implements AuthRepository {
                     }
                 },
             }
+            
             return Promise.resolve(response)
         } catch(e) {
             return Promise.reject(e)
