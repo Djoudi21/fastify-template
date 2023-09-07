@@ -8,12 +8,8 @@ export type User = {
     email: string
 }
 
-export type UserWithCredentials = User & {
-    password: string
-}
 
-
-export type CreatedUserResponse = {
+export type LoggedUserResponse = {
     status: number,
     data: {
         id: User['id'],
@@ -25,7 +21,7 @@ export type CreatedUserResponse = {
     },
 }
 
-export type CreatedUserResponseError = {
+export type LoggedUserResponseError = {
     status: number,
     data: {
         message: string
