@@ -1,14 +1,19 @@
-import {AuthRepository} from "../../repositories/interfaces/authRepository";
-import {Credentials, LoggedUserResponse, LoggedUserResponseError} from "./types";
+import { AuthRepository } from '../../repositories/interfaces/authRepository'
+import { Credentials } from './types'
 
-export class LoginUseCase  {
-    private authRepository: AuthRepository;
+export class LoginUseCase {
+  private authRepository: AuthRepository
 
-    constructor(authRepository: AuthRepository) {
-        this.authRepository = authRepository;
+  constructor(authRepository: AuthRepository) {
+    this.authRepository = authRepository
+  }
+
+  async execute(credentials: Credentials): Promise<any> {
+    try {
+      return await this.authRepository.login(credentials)
+    } catch (e) {
+      console.log('ICICICICICIIC')
+      return null
     }
-
-    async execute(credentials: Credentials): Promise<LoggedUserResponse | LoggedUserResponseError> {
-        return await this.authRepository.login(credentials)
-    }
+  }
 }
