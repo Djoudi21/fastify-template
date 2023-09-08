@@ -16,7 +16,6 @@ export class PrismaAuthRepository implements AuthRepository {
                     email: credentials.email,
                 },
             })
-            console.log('USER', user)
             if(user) {
                 const response: CreatedUserResponseError = {
                     status: 400,
@@ -52,11 +51,11 @@ export class PrismaAuthRepository implements AuthRepository {
 
     async login(credentials: Credentials): Promise<any> {
         try {
+            console.log('TOTO', credentials.email)
             const user = await prisma.user.findUnique({
-                where: {
-                    email: 'elsa@prisma.io',
-                },
+                where: {email: credentials.email}
             })
+
             if (!user) {
                 const response: any = {
                     status: 400,

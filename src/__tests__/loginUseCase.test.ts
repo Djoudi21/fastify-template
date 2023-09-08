@@ -17,12 +17,12 @@ describe('login use case', () => {
               password: 'existing user password'
           }
 
-          const toto = {
+          const userToLogin = {
               email: 'existing user email',
               password: 'existing user password'
           }
-          const users = authRepository._users.push(existingUser)
-          const {data} = await loginUseCase.execute(toto)
+          const users = authRepository._users && authRepository._users.push(existingUser)
+          const {data} = await loginUseCase.execute(userToLogin)
           if ('email' in data) {
               expect(data.email).toBeDefined()
           }
