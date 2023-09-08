@@ -1,6 +1,8 @@
 import { AuthRepository } from '../../repositories/interfaces/authRepository'
 import { Credentials } from './types'
 
+const jwt = require('jsonwebtoken')
+
 export class LoginUseCase {
   private authRepository: AuthRepository
 
@@ -10,10 +12,23 @@ export class LoginUseCase {
 
   async execute(credentials: Credentials): Promise<any> {
     try {
-      return await this.authRepository.login(credentials)
-    } catch (e) {
-      console.log('ICICICICICIIC')
-      return null
+      const user = await this.authRepository.login(credentials)
+
+      const data = {
+        id: user.id,
+        email: user.email,
+      }
+      const accessToken = jwt.sign(data, process.env.JWT_SECRET)
+      return {
+        status: 200,
+        data,
+        tokens: {
+          accessToken,
+          refreshToken: null,
+        },
+      }
+    } catch (error) {
+      return
     }
   }
 }
