@@ -10,6 +10,7 @@ export class PrismaAuthRepository implements AuthRepository {
       data: {
         email: credentials.email,
         password: credentials.password,
+        username: '',
       },
     })
   }

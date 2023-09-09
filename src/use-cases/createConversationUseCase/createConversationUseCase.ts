@@ -9,6 +9,9 @@ export class CreateConversationUseCase {
   }
 
   async execute(newConversation: Conversation) {
-    await this.conversationRepository.createConversation(newConversation)
+    try {
+      const truc = await this.conversationRepository.createConversation(newConversation)
+      console.log('TRUC', truc)
+    } catch (e) {}
   }
 }

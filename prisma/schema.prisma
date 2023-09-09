@@ -12,27 +12,24 @@ datasource db {
 
 // Define the User model
 model User {
-  id            Int            @id @default(autoincrement())
-  username      String         @unique
-  email         String         @unique
+  id            Int                    @id @default(autoincrement())
+  username      String                 @unique
+  email         String                 @unique
   password      String
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  // Add more user-specific fields as needed
-  conversations Conversation[]
-  sentMessages  Message[]      @relation("SentMessages")
+  createdAt     DateTime               @default(now())
+  updatedAt     DateTime               @updatedAt
+  conversations ConversationsOnUsers[]
+  sentMessages  Message[]              @relation("SentMessages")
 }
 
 // Define the Conversation model
 model Conversation {
-  id           Int       @id @default(autoincrement())
-  title        String
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  // Many-to-many relationship between User and Conversation
-  participants User[]
-  // One-to-many relationship between Conversation and Message
-  messages     Message[]
+  id        Int                    @id @default(autoincrement())
+  title     String
+  createdAt DateTime               @default(now())
+  updatedAt DateTime               @updatedAt
+  users     ConversationsOnUsers[]
+  messages  Message[]
 }
 
 // Define the Message model
@@ -47,4 +44,15 @@ model Message {
   // Many-to-one relationship between Message and Conversation
   conversation   Conversation @relation(fields: [conversationId], references: [id])
   conversationId Int
+}
+
+model ConversationsOnUsers {
+  user           User         @relation(fields: [userId], references: [id])
+  userId         Int // relation scalar field (used in the `@relation` attribute above)
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  conversationId Int // relation scalar field (used in the `@relation` attribute above)
+  createdAt      DateTime     @default(now())
+  createdBy      Int
+
+  @@id([userId, conversationId])
 }

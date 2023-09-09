@@ -8,4 +8,8 @@ export class InMemoryConversationRepository implements ConversationRepository {
     this._conversations.push(newConversation)
     return Promise.resolve()
   }
+
+  listConversations(): Promise<any> {
+    return Promise.resolve()
+  }
 }

@@ -17,6 +17,7 @@ describe('create conversation use case', () => {
 
     conversationRepository._conversations?.push(newConversation)
     const conversations = conversationRepository._conversations
+    if (!conversations) return
     const createdConversation = conversations[conversations.length - 1]
 
     expect(conversations).toHaveLength(1)
