@@ -1,6 +1,6 @@
 import { PrismaConversationRepository } from '../repositories/prismaConversationRepository'
 import { CreateConversationUseCase } from '../use-cases/createConversationUseCase/createConversationUseCase'
-import { ListConversationUseCase } from '../use-cases/listConversationUseCase/listConversationUseCase'
+import { ListConversationsByUserIdUseCase } from '../use-cases/listConversationsByUserIdUseCase/listConversationsByUserIdUseCase'
 
 export class ConversationController {
   async createConversation(req: any, reply: any): Promise<any> {
@@ -10,10 +10,11 @@ export class ConversationController {
     reply.send(response)
   }
 
-  async listConversations(req: any, reply: any): Promise<any> {
+  async listConversationsByUserId(req: any, reply: any): Promise<any> {
+    const userId = req.params.userId
     const conversationRepository = new PrismaConversationRepository()
-    const listConversationUseCase = new ListConversationUseCase(conversationRepository)
-    const response = await listConversationUseCase.execute(1)
+    const listConversationUseCase = new ListConversationsByUserIdUseCase(conversationRepository)
+    const response = await listConversationUseCase.execute(userId)
     reply.send(response)
   }
 }

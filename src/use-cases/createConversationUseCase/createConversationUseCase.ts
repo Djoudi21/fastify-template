@@ -1,5 +1,5 @@
 import { ConversationRepository } from '../../repositories/interfaces/conversationRepository'
-import { Conversation } from './types'
+import { ConversationRequestBody } from './types'
 
 export class CreateConversationUseCase {
   private conversationRepository: ConversationRepository
@@ -8,10 +8,16 @@ export class CreateConversationUseCase {
     this.conversationRepository = conversationRepository
   }
 
-  async execute(newConversation: Conversation) {
+  async execute(newConversationWithUserIds: ConversationRequestBody) {
     try {
-      const truc = await this.conversationRepository.createConversation(newConversation)
-      console.log('TRUC', truc)
-    } catch (e) {}
+      await this.conversationRepository.createConversation(newConversationWithUserIds)
+      return {
+        status: 201,
+      }
+    } catch (e) {
+      return {
+        status: 400,
+      }
+    }
   }
 }

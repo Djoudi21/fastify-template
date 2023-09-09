@@ -16,7 +16,9 @@ export class RegisterUseCase {
         data: rest,
       }
     } catch (e) {
-      return null
+      return {
+        status: 400,
+      }
     }
   }
 }

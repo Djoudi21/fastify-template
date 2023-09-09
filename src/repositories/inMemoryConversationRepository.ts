@@ -9,7 +9,7 @@ export class InMemoryConversationRepository implements ConversationRepository {
     return Promise.resolve()
   }
 
-  listConversations(): Promise<any> {
+  listConversationsByUserId(): Promise<any> {
     return Promise.resolve()
   }
 }

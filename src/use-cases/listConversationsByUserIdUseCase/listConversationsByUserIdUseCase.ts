@@ -1,7 +1,7 @@
 import { ConversationRepository } from '../../repositories/interfaces/conversationRepository'
 import { User } from '@prisma/client'
 
-export class ListConversationUseCase {
+export class ListConversationsByUserIdUseCase {
   conversationRepository: ConversationRepository
 
   constructor(conversationRepository: ConversationRepository) {
@@ -10,7 +10,16 @@ export class ListConversationUseCase {
 
   async execute(userId: User['id']) {
     try {
-      await this.conversationRepository.listConversations(userId)
-    } catch (e) {}
+      return {
+        status: 200,
+        data: {
+          conversations: await this.conversationRepository.listConversationsByUserId(userId),
+        },
+      }
+    } catch (e) {
+      return {
+        status: 400,
+      }
+    }
   }
 }

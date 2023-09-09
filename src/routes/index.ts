@@ -7,6 +7,7 @@ const conversationController = new ConversationController()
 const registerPath = '/register'
 const loginPath = '/login'
 const conversationPath = '/conversations'
+const conversationByUserIdPath = '/users/:userId/conversations'
 
 export async function router(fastify: FastifyInstance) {
   fastify.route({
@@ -26,7 +27,7 @@ export async function router(fastify: FastifyInstance) {
   })
   fastify.route({
     method: 'GET',
-    url: conversationPath,
-    handler: conversationController.listConversations,
+    url: conversationByUserIdPath,
+    handler: conversationController.listConversationsByUserId,
   })
 }

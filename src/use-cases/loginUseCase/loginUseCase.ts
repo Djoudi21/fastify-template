@@ -28,7 +28,9 @@ export class LoginUseCase {
         },
       }
     } catch (error) {
-      return
+      return {
+        status: 400,
+      }
     }
   }
 }
