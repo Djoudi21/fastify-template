@@ -10,49 +10,43 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Define the User model
 model User {
-  id             Int                    @id @default(autoincrement())
-  username       String                 @unique
-  email          String                 @unique
-  password       String
-  createdAt      DateTime               @default(now())
-  updatedAt      DateTime               @updatedAt
-  conversations  ConversationsOnUsers[]
-  sentMessages   Message[]              @relation("SentMessages")
-  Conversation   Conversation?          @relation(fields: [conversationId], references: [id])
-  conversationId Int?
+  id            Int            @id @default(autoincrement())
+  // createdAt DateTime  @default(now())
+  email         String         @unique @db.VarChar(255)
+  // username  String
+  password      String
+  // sender    Message   @relation("sender")
+  // receiver  Message   @relation("receiver", fields: [messageId], references: [id])
+  // messageId Int
+  // Group     Group?    @relation(fields: [groupId], references: [id])
+  // groupId   Int?
+  // Message   Message[]
+  // Message   Message[]
+  // Conversation   Conversation? @relation(fields: [conversationId], references: [id])
+  // conversationId Int?
+  // messages      Message[]
+  conversations Conversation[]
 }
 
-// Define the Conversation model
 model Conversation {
-  id                   Int                    @id @default(autoincrement())
-  title                String
-  createdAt            DateTime               @default(now())
-  updatedAt            DateTime               @updatedAt
-  messages             Message[]
-  ConversationsOnUsers ConversationsOnUsers[]
-  User                 User[]
+  id           Int       @id @default(autoincrement())
+  messages     Message[]
+  participants User[]
 }
 
-// Define the Message model
 model Message {
   id             Int          @id @default(autoincrement())
-  content        String
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
-  // Many-to-one relationship between Message and User
-  sender         User         @relation("SentMessages", fields: [senderId], references: [id])
-  senderId       Int
-  // Many-to-one relationship between Message and Conversation
+  text           String
+  // sender     User   @relation("sender", fields: [senderId], references: [id])
+  // senderId   Int
+  // reciever   User   @relation("reciever", fields: [recieverId], references: [id])
+  // recieverId Int
+  // User       User[]
+  // Group      Group? @relation(fields: [groupId], references: [id])
+  // groupId    Int?
+  // Conversation   Conversation? @relation(fields: [conversationId], references: [id])
+  // conversationId Int?
   conversation   Conversation @relation(fields: [conversationId], references: [id])
   conversationId Int
-}
-
-model ConversationsOnUsers {
-  id             Int          @id @default(autoincrement())
-  userId         Int
-  conversationId Int
-  user           User         @relation(fields: [userId], references: [id])
-  conversation   Conversation @relation(fields: [conversationId], references: [id])
 }

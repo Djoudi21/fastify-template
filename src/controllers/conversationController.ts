@@ -4,6 +4,7 @@ import { ListConversationsByUserIdUseCase } from '../use-cases/listConversations
 
 export class ConversationController {
   async createConversation(req: any, reply: any): Promise<any> {
+    // TODO: handle req.body.data mapping
     const conversationRepository = new PrismaConversationRepository()
     const createConversationUseCase = new CreateConversationUseCase(conversationRepository)
     const response = await createConversationUseCase.execute(req.body.data)
@@ -11,6 +12,7 @@ export class ConversationController {
   }
 
   async listConversationsByUserId(req: any, reply: any): Promise<any> {
+    // TODO: handle req.body.data mapping
     const userId = req.params.userId
     const conversationRepository = new PrismaConversationRepository()
     const listConversationUseCase = new ListConversationsByUserIdUseCase(conversationRepository)

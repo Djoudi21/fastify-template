@@ -1,10 +1,11 @@
-import { User } from '@prisma/client'
-
 export type Conversation = {
   title: string
 }
 
+type userId = {
+  id: number
+}
+
 export type ConversationRequestBody = {
-  title: string
-  userIds: User['id'][]
+  userIds: userId[]
 }
