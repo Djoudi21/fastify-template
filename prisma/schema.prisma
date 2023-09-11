@@ -27,6 +27,7 @@ model User {
   // conversationId Int?
   // messages      Message[]
   conversations Conversation[]
+  Message       Message[]
 }
 
 model Conversation {
@@ -36,17 +37,15 @@ model Conversation {
 }
 
 model Message {
-  id             Int          @id @default(autoincrement())
-  text           String
+  id     Int    @id @default(autoincrement())
+  text   String
   // sender     User   @relation("sender", fields: [senderId], references: [id])
   // senderId   Int
   // reciever   User   @relation("reciever", fields: [recieverId], references: [id])
   // recieverId Int
-  // User       User[]
-  // Group      Group? @relation(fields: [groupId], references: [id])
-  // groupId    Int?
-  // Conversation   Conversation? @relation(fields: [conversationId], references: [id])
-  // conversationId Int?
+  user   User   @relation(fields: [conversationId], references: [id], map: "user_fk")
+  userId Int
+
   conversation   Conversation @relation(fields: [conversationId], references: [id])
   conversationId Int
 }
