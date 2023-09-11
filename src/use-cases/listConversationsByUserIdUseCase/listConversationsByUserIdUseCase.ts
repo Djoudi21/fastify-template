@@ -10,10 +10,23 @@ export class ListConversationsByUserIdUseCase {
 
   async execute(userId: User['id']) {
     try {
+      const conversations = await this.conversationRepository.listConversationsByUserId(userId)
+      console.log(conversations)
+
+      const participantsWithoutPassword = conversations.map((conversation: any) => {
+        const participants = conversation.participants.map(
+          (participant: { id: number; email: string; password: string }) => {
+            const { password, ...rest } = participant
+            return rest
+          },
+        )
+        return { ...conversation, participants }
+      })
+
       return {
         status: 200,
         data: {
-          conversations: await this.conversationRepository.listConversationsByUserId(userId),
+          conversations: participantsWithoutPassword,
         },
       }
     } catch (e) {
