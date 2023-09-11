@@ -15,8 +15,14 @@ export class PrismaAuthRepository implements AuthRepository {
   }
 
   async login(credentials: Credentials): Promise<any> {
-    return prisma.user.findUnique({
-      where: { email: credentials.email },
-    })
+    try {
+      const user = await prisma.user.findUnique({
+        where: { email: credentials.email, password: credentials.password },
+      })
+      if (!user) {
+        throw new Error('Aucun utilisateur trouvé')
+      }
+      return user
+    } catch (e) {}
   }
 }
