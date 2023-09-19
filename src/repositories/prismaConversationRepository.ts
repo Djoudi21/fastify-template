@@ -4,11 +4,11 @@ import { ConversationRepository } from './interfaces/conversationRepository'
 const prisma = new PrismaClient()
 
 export class PrismaConversationRepository implements ConversationRepository {
-  async createConversation({ userIds }: any): Promise<any> {
+  async createConversation({ participants }: any): Promise<any> {
     return prisma.conversation.create({
       data: {
         participants: {
-          connect: userIds,
+          connect: participants,
         },
       },
     })
