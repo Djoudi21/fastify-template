@@ -39,4 +39,9 @@ export async function router(fastify: FastifyInstance) {
     url: messagesByConversationIdPath,
     handler: messageController.listMessagesByConversationId,
   })
+  fastify.route({
+    method: 'POST',
+    url: messagesByConversationIdPath,
+    handler: messageController.createMessage,
+  })
 }

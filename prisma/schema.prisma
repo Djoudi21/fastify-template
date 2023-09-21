@@ -12,40 +12,31 @@ datasource db {
 
 model User {
   id            Int            @id @default(autoincrement())
-  // createdAt DateTime  @default(now())
   email         String         @unique @db.VarChar(255)
-  // username  String
+  // username     String         @unique @db.VarChar(255)
   password      String
   // sender    Message   @relation("sender")
   // receiver  Message   @relation("receiver", fields: [messageId], references: [id])
-  // messageId Int
   // Group     Group?    @relation(fields: [groupId], references: [id])
   // groupId   Int?
-  // Message   Message[]
-  // Message   Message[]
-  // Conversation   Conversation? @relation(fields: [conversationId], references: [id])
-  // conversationId Int?
-  // messages      Message[]
   conversations Conversation[]
   Message       Message[]
+  createdAt     DateTime       @default(now())
 }
 
 model Conversation {
   id           Int       @id @default(autoincrement())
   messages     Message[]
   participants User[]
+  createdAt    DateTime  @default(now())
 }
 
 model Message {
-  id     Int    @id @default(autoincrement())
-  text   String
-  // sender     User   @relation("sender", fields: [senderId], references: [id])
-  // senderId   Int
-  // reciever   User   @relation("reciever", fields: [recieverId], references: [id])
-  // recieverId Int
-  user   User   @relation(fields: [conversationId], references: [id], map: "user_fk")
-  userId Int
-
+  id             Int          @id @default(autoincrement())
+  text           String
+  sender         User         @relation(fields: [userId], references: [id])
   conversation   Conversation @relation(fields: [conversationId], references: [id])
+  createdAt      DateTime     @default(now())
+  userId         Int
   conversationId Int
 }

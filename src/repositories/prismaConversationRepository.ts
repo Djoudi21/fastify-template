@@ -4,28 +4,36 @@ import { ConversationRepository } from './interfaces/conversationRepository'
 const prisma = new PrismaClient()
 
 export class PrismaConversationRepository implements ConversationRepository {
-  async createConversation({ participants }: any): Promise<any> {
-    return prisma.conversation.create({
-      data: {
-        participants: {
-          connect: participants,
-        },
-      },
-    })
-  }
-
-  async listConversationsByUserId(userId: any): Promise<any> {
-    return prisma.conversation.findMany({
-      where: {
-        participants: {
-          some: {
-            id: Number(userId),
+  createConversation({ participants }: any): Promise<any> {
+    try {
+      return prisma.conversation.create({
+        data: {
+          participants: {
+            connect: participants,
           },
         },
-      },
-      include: {
-        participants: true,
-      },
-    })
+      })
+    } catch (error) {
+      throw new Error()
+    }
+  }
+
+  listConversationsByUserId(userId: any): Promise<any> {
+    try {
+      return prisma.conversation.findMany({
+        where: {
+          participants: {
+            some: {
+              id: Number(userId),
+            },
+          },
+        },
+        include: {
+          participants: true,
+        },
+      })
+    } catch (error) {
+      throw new Error()
+    }
   }
 }

@@ -1,5 +1,6 @@
 export type Conversation = {
   title: string
+  id: string | number
 }
 
 type userId = {

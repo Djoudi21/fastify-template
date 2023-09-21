@@ -6,23 +6,25 @@ const prisma = new PrismaClient()
 
 export class PrismaAuthRepository implements AuthRepository {
   async register(credentials: Credentials): Promise<any> {
-    return prisma.user.create({
-      data: {
-        email: credentials.email,
-        password: credentials.password,
-      },
-    })
+    try {
+      return prisma.user.create({
+        data: {
+          email: credentials.email,
+          password: credentials.password,
+        },
+      })
+    } catch (error) {
+      throw new Error()
+    }
   }
 
-  async login(credentials: Credentials): Promise<any> {
+  login(credentials: Credentials): Promise<any> {
     try {
-      const user = await prisma.user.findUnique({
+      return prisma.user.findUnique({
         where: { email: credentials.email, password: credentials.password },
       })
-      if (!user) {
-        throw new Error('Aucun utilisateur trouvé')
-      }
-      return user
-    } catch (e) {}
+    } catch (e) {
+      throw new Error()
+    }
   }
 }

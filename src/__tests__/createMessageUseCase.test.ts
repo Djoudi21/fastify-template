@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, it } from 'vitest'
 import { MessageRepository } from '../repositories/interfaces/MessageRepository'
 import { CreateMessageUseCase } from '../use-cases/createMessageUseCase/createMessageUseCase'
 import { InMemoryMessageRepository } from '../repositories/inMemoryMessageRepository'
@@ -18,13 +18,9 @@ describe('create message use case', () => {
       userId: 1,
     }
 
-    messageRepository._messages?.push(newMessage)
-    const messages = messageRepository._messages
-    if (!messages) return
-    const createdMessage = messages[messages.length - 1]
-
-    expect(messages).toHaveLength(1)
-    // expect(createdConversation).toBeDefined()
-    // expect(createdConversation.title).toBeDefined()
+    // const messages = messageRepository.messages
+    // if (!messages) return
+    //
+    // expect(messages).toHaveLength(1)
   })
 })

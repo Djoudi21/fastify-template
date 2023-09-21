@@ -4,7 +4,7 @@ export type Credentials = {
 }
 
 export type User = {
-  id: number | string
+  id: number
   email: string
 }
 
