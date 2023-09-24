@@ -1,12 +1,14 @@
-import { FastifyInstance } from 'fastify'
-import { AuthController } from '../controllers/authControler'
-import { ConversationController } from '../controllers/conversationController'
-import { MessageController } from '../controllers/messageController'
+import {FastifyInstance} from 'fastify'
+import {AuthController} from '../controllers/authControler'
+import {ConversationController} from '../controllers/conversationController'
+import {MessageController} from '../controllers/messageController'
 
+// CONTROLLERS
 const authController = new AuthController()
 const conversationController = new ConversationController()
 const messageController = new MessageController()
 
+// PATHS
 const registerPath = '/register'
 const loginPath = '/login'
 const conversationPath = '/conversations'

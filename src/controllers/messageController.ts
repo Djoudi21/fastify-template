@@ -17,7 +17,6 @@ export class MessageController {
     const messageRepository = new PrismaMessageRepository()
     const createMessageUseCase = new CreateMessageUseCase(messageRepository)
     const response = await createMessageUseCase.execute(conversationId, text, userId)
-    console.log('ICI', response)
     reply.send(response)
   }
 }
